@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Straight Line Fit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  font-family:sans-serif;
+  text-align:center;
+  background:#0f172a;
+  color:white;
+  padding:30px;
+}
+input{margin:5px;padding:8px;width:200px;}
+button{
+  padding:10px 20px;
+  background:#2563eb;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Straight Line Fit (y = mx + c)</h2>
+
+<input id="x" placeholder="x values (1,2,3)">
+<input id="y" placeholder="y values (2,4,6)">
+<br><br>
+
+<button onclick="calc()">Calculate</button>
+
+<h3 id="result"></h3>
+
+<script>
+function calc(){
+  let x=document.getElementById("x").value.split(',').map(Number);
+  let y=document.getElementById("y").value.split(',').map(Number);
+
+  let n=x.length;
+  let sumx=0,sumy=0,sumxy=0,sumx2=0;
+
+  for(let i=0;i<n;i++){
+    sumx+=x[i];
+    sumy+=y[i];
+    sumxy+=x[i]*y[i];
+    sumx2+=x[i]*x[i];
+  }
+
+  let m=(n*sumxy - sumx*sumy)/(n*sumx2 - sumx*sumx);
+  let c=(sumy - m*sumx)/n;
+
+  document.getElementById("result").innerText =
+    "y = " + m.toFixed(2) + "x + " + c.toFixed(2);
+}
+</script>
+
+</body>
+</html>
